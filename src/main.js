@@ -1,6 +1,8 @@
+console.log("Starting 3D Viewer");
+
 class App {
     constructor() {
-        console.log("Starting 3D Viewer");
+        console.log("App constructor running");
         this.scene = new THREE.Scene();
         this.container = document.querySelector('#scene-container');
         this.createRenderer();
@@ -169,5 +171,6 @@ class App {
 
 // Start the application
 window.addEventListener('load', () => {
+    console.log("Window loaded, creating App");
     new App();
 });
