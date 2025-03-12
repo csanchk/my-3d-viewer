@@ -3,27 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Room Viewer</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Add Three.js from newer CDN -->
+    <title>3D Viewer Test</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
     <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.157.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.157.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
-    <div id="app">
-        <div id="scene-container"></div>
-        <div class="controls">
-            <input type="file" id="modelUpload" accept=".glb,.gltf,.obj" multiple>
-            <button id="toggleMove">Toggle Move Mode</button>
-        </div>
-    </div>
-    <!-- Add some debug console logs -->
     <script>
-        console.log('Page loading...');
-        console.log('THREE.js version:', THREE.REVISION);
+        console.log('Starting basic Three.js test');
+
+        // Basic Three.js scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a cube
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        camera.position.z = 5;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+
+        console.log('Starting animation');
+        animate();
     </script>
-    <!-- Our main script -->
-    <script src="src/main.js"></script>
 </body>
 </html>
