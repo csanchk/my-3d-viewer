@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Page</title>
+    <title>3D Viewer</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
 </head>
-<body style="background: blue; color: white; text-align: center; padding-top: 50px;">
-    <h1>Test Deploy</h1>
-    <p>If you see this, the site is working!</p>
+<body>
+    <!-- Load Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.157.0/three.min.js"></script>
+    
+    <script>
+        console.log('Starting Three.js test');
+
+        // Create scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf0f0f0);  // Light gray background
+
+        // Create camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        // Create renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a cube
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+
+        // Start animation
+        animate();
+
+        // Add console log to verify script is running
+        console.log('Animation started');
+    </script>
 </body>
 </html>
